@@ -616,3 +616,49 @@ def circular_shift(x, shift):
     """
 
     return str(x)[shift:] + str(x)[:shift]
+
+
+def digitSum(s):
+    """Task
+    Write a function that takes a string as input and returns the sum of the upper characters only'
+    ASCII codes.
+
+    Examples:
+        digitSum("") => 0
+        digitSum("abAB") => 131
+        digitSum("abcCd") => 67
+        digitSum("helloE") => 69
+        digitSum("woArBld") => 131
+        digitSum("aAaaaXa") => 153
+    """
+    currentSum = 0
+
+    # calculate sum of ascii values of each word
+    for char in s:
+        if char.isupper():
+            currentSum += sum(map(ord, char))
+
+    return currentSum
+
+
+def fruit_distribution(s, n):
+    """
+    In this task, you will be given a string that represents a number of apples and oranges 
+    that are distributed in a basket of fruit this basket contains 
+    apples, oranges, and mango fruits. Given the string that represents the total number of 
+    the oranges and apples and an integer that represent the total number of the fruits 
+    in the basket return the number of the mango fruits in the basket.
+    for examble:
+    fruit_distribution("5 apples and 6 oranges", 19) ->19 - 5 + 6 = 8
+    fruit_distribution("0 apples and 1 oranges",3) -> 3 - 0 + 1 = 2
+    fruit_distribution("2 apples and 3 oranges", 100) -> 100 - 2 + 3 = 95
+    fruit_distribution("100 apples and 1 oranges",120) -> 120 - 100 + 1 = 19
+    """
+
+    non_mango = 0
+
+    for char in s:
+        if char.isnumeric():
+            non_mango += int(char)
+
+    return n - non_mango
