@@ -731,3 +731,196 @@ def strange_sort_list(lst):
         lst.pop(lst.index(max(lst)))
 
     return output
+
+    def will_it_fly(q, w):
+    '''
+    Write a function that returns True if an object will fly, False otherwise.
+    The object will fly if it's balanced and the sum of the weight is less than or equal the maximum possible weight w.
+
+    Example:
+    >>> will_it_fly([1, 2], 5)
+    False
+
+    # 1+2 is less than the maximum possible weight, but it's unbalanced.
+
+    >>> will_it_fly([3, 2, 3], 1)
+    False
+
+    # it's balanced, but 3+2+3 is more than the maximum possible weight.
+
+    >>> will_it_fly([3, 2, 3], 9)
+    True
+
+    # 3+2+3 is less than the maximum possible weight, and it's balanced.
+
+    >>> will_it_fly([3], 5)
+    True
+
+    # 3 is less than the maximum possible weight, and it's balanced.
+    '''
+
+    if q[0] == q[-1] and sum(q) < w:
+        return True
+    else:
+        return False
+
+
+def smallest_change(arr):
+    """
+    Given an array arr of integers, find the minimum number of elements that
+    need to be changed to make the array palindromic. A palindromic array is an array that
+    is read the same backwards and forwards. In one change, you can change one element to any other element.
+    >>> smallest_change([1,2,3,5,4,7,9,6])
+    4
+    >>> smallest_change([1, 2, 3, 4, 3, 2, 2])
+    1
+    >>> smallest_change([1, 2, 3, 2, 1])
+    0
+    """
+    n = len(arr)
+
+    cc = 0
+
+    for i in range(n//2):
+
+        if(arr[i] == arr[n-i-1]):
+            continue
+
+        cc += 1
+
+        if(arr[i] < arr[n-i-1]):
+            arr[n-i-1] = arr[i]
+        else:
+            arr[i] = arr[n-i-1]
+
+    return cc
+
+
+def total_match(lst1, lst2):
+    '''
+    Write a function that accepts two lists of strings and returns the list that has 
+    total number of chars in the all strings of the list less than the other list.
+
+    if the two lists have the same number of chars, return the first list.
+
+    >>> total_match([], [])
+    []
+    >>> total_match(['hi', 'admin'], ['hI', 'Hi'])
+    ['hI', 'Hi']
+    >>> total_match(['hi', 'admin'], ['hi', 'hi', 'admin', 'project'])
+    ['hi', 'admin']
+    >>> total_match(['hi', 'admin'], ['hI', 'hi', 'hi'])
+    ['hI', 'hi', 'hi']
+    >>> total_match(['4'], ['1', '2', '3', '4', '5'])
+    ['4']
+    '''
+
+    char1 = sum(len(i) for i in lst1)
+    char2 = sum(len(i) for i in lst2)
+
+    if char1 == char2 or char1 < char2:
+        return lst1
+    elif char1 > char2:
+        return lst2
+
+
+def is_multiply_prime(a):
+    """Write a function that returns true if the given number is the multiplication of 3 prime numbers
+    and false otherwise.
+    Knowing that (a) is less then 100.
+    Example:
+
+    >>> is_multiply_prime(30)
+    True
+
+    30 = 2 * 3 * 5
+    """
+
+    possible_primes = [2, 3, 5, 7, 11, 13]
+    under_100 = []
+    for l in product(possible_primes, repeat=3):
+        multiple = reduce(lambda x, y: x*y, list(l))
+        if multiple < 100:
+            under_100.append(multiple)
+
+    if a in set(under_100):
+        return True
+
+    return False
+
+
+def is_simple_power(x, n):
+    """Your task is to write a function that returns true if a number x is a simple
+    power of n and false in other cases.
+    x is a simple power of n if n**int=x
+    For example:
+
+    >>> is_simple_power(1, 4)
+    True
+    >>> is_simple_power(2, 2)
+    True
+    >>> is_simple_power(8, 2)
+    True
+    >>> is_simple_power(3, 2)
+    False
+    >>> is_simple_power(3, 1)
+    False
+    >>> is_simple_power(5, 3)
+    False
+    """
+
+    if (n == 1) or (x == 1):
+        return (x == 1)
+
+    pw = 1
+
+    while (n ** pw < x):
+
+        pw += 1
+
+    return (n ** pw == x)
+
+
+def hex_key(num):
+    """You have been tasked to write a function that receives 
+    a hexadecimal number as a string and counts the number of hexadecimal 
+    digits that are primes (prime number, or a prime, is a natural number 
+    greater than 1 that is not a product of two smaller natural numbers).
+    Hexadecimal digits are 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F.
+    Prime numbers are 2, 3, 5, 7, 11, 13, 17,...
+    So you have to determine a number of the following digits: 2, 3, 5, 7, 
+    B (=decimal 11), D (=decimal 13).
+    Note: you may assume the input is always correct or empty string, 
+    and symbols A,B,C,D,E,F are always uppercase.
+    Examples:
+    >>> hex_key("AB")
+    1
+    >>> hex_key("1077E")
+    2
+    >>> hex_key("ABED1A33")
+    4
+    >>> hex_key("123456789ABCDEF0")
+    6
+    >>> hex_key("2020")
+    2
+    """
+
+    return len([c for c in num if c in '2357BD'])
+
+
+def decimal_to_binary(decimal):
+    """You will be given a number in decimal form and your task is to convert it to
+    binary format. The function should return a string, with each character representing a binary
+    number. Each character in the string will be '0' or '1'.
+
+    There will be an extra couple of characters 'db' at the beginning and at the end of the string.
+    The extra characters are there to help with the format.
+
+    Examples:
+    >>> decimal_to_binary(15)
+    'db1111db'
+    >>> decimal_to_binary(32)
+    'db100000db'
+    """
+
+    return f'db{bin(decimal)[2:]}db'
